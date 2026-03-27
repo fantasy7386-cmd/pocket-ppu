@@ -670,21 +670,24 @@ body {
       const serverNotes = await notesResp.json();
 
       // Check localStorage for local edits
+      // Only use local version if it's STRICTLY newer than server
       const localNotesRaw = localStorage.getItem('ppu_teaching_notes');
       if (localNotesRaw) {
         try {
           const localNotes = JSON.parse(localNotesRaw);
-          // Use local if it has a newer or equal updated timestamp, or if it exists at all
-          if (localNotes.updated && localNotes.updated >= serverNotes.updated) {
+          if (localNotes.updated && localNotes.updated > serverNotes.updated) {
             NOTES = localNotes;
             notesSource = 'local';
           } else {
+            // Server is same or newer — use server, clear stale local
             NOTES = serverNotes;
             notesSource = 'server';
+            localStorage.removeItem('ppu_teaching_notes');
           }
         } catch (e) {
           NOTES = serverNotes;
           notesSource = 'server';
+          localStorage.removeItem('ppu_teaching_notes');
         }
       } else {
         NOTES = serverNotes;
