@@ -30,13 +30,17 @@ self.addEventListener('activate', event => {
   );
 });
 
-// Fetch: stale-while-revalidate strategy
-// Returns cached version instantly (fast), while fetching fresh copy in background.
-// Next time the app opens, it will use the updated version.
+// Fetch: stale-while-revalidate for app assets, passthrough for external APIs
 self.addEventListener('fetch', event => {
+  const url = new URL(event.request.url);
+
+  // NEVER cache external API calls (GitHub API, etc.)
+  if (url.origin !== self.location.origin) {
+    return; // let browser handle it directly
+  }
+
   event.respondWith(
     caches.match(event.request).then(cached => {
-      // Fetch fresh copy in background
       const fetchPromise = fetch(event.request).then(response => {
         if (response.ok && event.request.method === 'GET') {
           const clone = response.clone();
@@ -45,7 +49,6 @@ self.addEventListener('fetch', event => {
         return response;
       }).catch(() => cached);
 
-      // Return cached immediately if available, otherwise wait for fetch
       return cached || fetchPromise;
     })
   );
