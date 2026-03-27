@@ -595,7 +595,8 @@ body {
     <div class="notes-grid" id="notes-grid"></div>
     <div class="notes-actions" id="notes-actions">
       <button class="btn btn-outline" id="btn-add-section">+ Add Section</button>
-      <button class="btn btn-accent" id="btn-export-json">Export JSON</button>
+      <button class="btn btn-accent" id="btn-sync-github">⬆ Sync to GitHub</button>
+      <button class="btn btn-outline" id="btn-export-json" style="font-size:11px;">Export JSON</button>
     </div>
   </div>
 
@@ -1254,6 +1255,80 @@ body {
     URL.revokeObjectURL(url);
   }
 
+  // --- GitHub Sync: push teaching-notes.json directly from browser ---
+  const GH_REPO = 'fantasy7386-cmd/pocket-ppu';
+  const GH_FILE = 'teaching-notes.json';
+  const GH_TOKEN_KEY = 'ppu_gh_token';
+
+  async function syncToGitHub() {
+    let token = localStorage.getItem(GH_TOKEN_KEY);
+    if (!token) {
+      token = prompt(
+        'First-time setup: Enter your GitHub Personal Access Token.\n\n' +
+        'Create one at: github.com/settings/tokens\n' +
+        'Scope needed: "public_repo"\n\n' +
+        'This is saved locally on your device only.'
+      );
+      if (!token) return;
+      localStorage.setItem(GH_TOKEN_KEY, token.trim());
+    }
+
+    const syncBtn = document.getElementById('btn-sync-github');
+    const origText = syncBtn.textContent;
+    syncBtn.textContent = 'Syncing...';
+    syncBtn.disabled = true;
+
+    try {
+      // Get current file SHA (required for update)
+      const getResp = await fetch(`https://api.github.com/repos/${GH_REPO}/contents/${GH_FILE}`, {
+        headers: { 'Authorization': `token ${token}` }
+      });
+
+      if (!getResp.ok && getResp.status === 401) {
+        localStorage.removeItem(GH_TOKEN_KEY);
+        throw new Error('Invalid token. Please try again.');
+      }
+
+      const fileData = await getResp.json();
+      const sha = fileData.sha;
+
+      // Prepare updated content
+      NOTES.updated = new Date().toISOString().slice(0, 10);
+      const content = btoa(unescape(encodeURIComponent(JSON.stringify(NOTES, null, 2))));
+
+      // Push update
+      const putResp = await fetch(`https://api.github.com/repos/${GH_REPO}/contents/${GH_FILE}`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `token ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          message: `Update teaching notes ${NOTES.updated}`,
+          content: content,
+          sha: sha
+        })
+      });
+
+      if (!putResp.ok) {
+        const err = await putResp.json();
+        throw new Error(err.message || 'Push failed');
+      }
+
+      // Clear local-only state since we've synced
+      notesSource = 'server';
+      localStorage.removeItem('ppu_teaching_notes');
+      buildNotesGrid();
+
+      syncBtn.textContent = '✅ Synced!';
+      setTimeout(() => { syncBtn.textContent = origText; syncBtn.disabled = false; }, 2000);
+    } catch (e) {
+      alert('Sync failed: ' + e.message);
+      syncBtn.textContent = origText;
+      syncBtn.disabled = false;
+    }
+  }
+
   // --- View management ---
   function switchView(name) {
     if (name !== 'article' && name !== 'search' && name !== 'note-detail' && name !== 'note-edit') previousView = currentView;
@@ -1353,6 +1428,7 @@ body {
     });
 
     document.getElementById('btn-export-json').addEventListener('click', exportNotesJSON);
+    document.getElementById('btn-sync-github').addEventListener('click', syncToGitHub);
 
     // Notes grid clicks
     document.getElementById('notes-grid').addEventListener('click', e => {
