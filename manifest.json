@@ -1,0 +1,14 @@
+{
+  "name": "Pocket PPu",
+  "short_name": "Pocket PPu",
+  "description": "Urology Patient Education Reference for Healthcare Professionals",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f5f7fa",
+  "theme_color": "#1a5276",
+  "orientation": "portrait-primary",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
