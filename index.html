@@ -779,7 +779,6 @@ body {
   }
 
   function showArticle(articleId, query) {
-    try {
     const article = DB.articles.find(a => a.id === articleId);
     if (!article) return;
     currentArticle = article;
@@ -830,7 +829,6 @@ body {
     `;
     switchView('article');
     window.scrollTo(0, 0);
-    } catch(err) { alert('showArticle error: ' + err.message); }
   }
 
   // --- Search ---
@@ -1456,7 +1454,6 @@ body {
       showNoteEdit('__new__');
     });
 
-    document.getElementById('btn-export-json').addEventListener('click', exportNotesJSON);
     document.getElementById('btn-sync-github').addEventListener('click', syncToGitHub);
 
     // Notes grid clicks
@@ -1469,6 +1466,7 @@ body {
 
     // Main content delegation
     document.getElementById('main').addEventListener('click', e => {
+
       // Favorite button (articles)
       const favBtn = e.target.closest('[data-fav]');
       if (favBtn) {
@@ -1582,13 +1580,8 @@ body {
 
       // Article item
       const item = e.target.closest('.article-item');
-      if (item) {
-        const aid = item.dataset.id;
-        if (aid) {
-          showArticle(aid, currentView === 'search' ? currentSearchQuery : '');
-        } else {
-          alert('DEBUG: article-item found but no data-id. Classes: ' + item.className + ' HTML: ' + item.outerHTML.substring(0, 200));
-        }
+      if (item && item.dataset.id) {
+        showArticle(item.dataset.id, currentView === 'search' ? currentSearchQuery : '');
         return;
       }
     });
