@@ -6,9 +6,9 @@
   "sections": [
     {
       "id": "tn_00",
-      "number": "一",
+      "number": "I",
       "title": "LUTS、排尿機轉與門診功能評估",
-      "full_title": "一、LUTS、排尿機轉與門診功能評估",
+      "full_title": "I. LUTS、排尿機轉與門診功能評估",
       "subsections": [
         {
           "title": "1. Uroflowmetry（UFM）判讀重點",
@@ -58,9 +58,9 @@
     },
     {
       "id": "tn_01",
-      "number": "二",
+      "number": "II",
       "title": "Chronic prostatitis / CPPS",
-      "full_title": "二、Chronic prostatitis / CPPS",
+      "full_title": "II. Chronic prostatitis / CPPS",
       "subsections": [
         {
           "title": "1. 症狀分布",
@@ -88,9 +88,9 @@
     },
     {
       "id": "tn_02",
-      "number": "三",
+      "number": "III",
       "title": "BPH、排尿症狀與常用藥物調整",
-      "full_title": "三、BPH、排尿症狀與常用藥物調整",
+      "full_title": "III. BPH、排尿症狀與常用藥物調整",
       "subsections": [
         {
           "title": "1. Alpha-blocker 的調整",
@@ -141,9 +141,9 @@
     },
     {
       "id": "tn_03",
-      "number": "四",
+      "number": "IV",
       "title": "PSA、PHI、free PSA、切片與 MRI",
-      "full_title": "四、PSA、PHI、free PSA、切片與 MRI",
+      "full_title": "IV. PSA、PHI、free PSA、切片與 MRI",
       "subsections": [
         {
           "title": "1. Borderline PSA 的輔助判斷",
@@ -190,9 +190,9 @@
     },
     {
       "id": "tn_04",
-      "number": "五",
+      "number": "V",
       "title": "Prostate cancer：分期、TURP/TUEP 後 incidental cancer、MRI 與 DRE",
-      "full_title": "五、Prostate cancer：分期、TURP/TUEP 後 incidental cancer、MRI 與 DRE",
+      "full_title": "V. Prostate cancer：分期、TURP/TUEP 後 incidental cancer、MRI 與 DRE",
       "subsections": [
         {
           "title": "1. TURP 後 incidental prostate cancer 分類",
@@ -220,9 +220,9 @@
     },
     {
       "id": "tn_05",
-      "number": "六",
+      "number": "VI",
       "title": "Active surveillance（AS）",
-      "full_title": "六、Active surveillance（AS）",
+      "full_title": "VI. Active surveillance（AS）",
       "subsections": [
         {
           "title": "1. AS 的核心不是只看 Gleason 總分",
@@ -252,9 +252,9 @@
     },
     {
       "id": "tn_06",
-      "number": "七",
+      "number": "VII",
       "title": "Focal therapy、RP 與 RT 的取捨",
-      "full_title": "七、Focal therapy、RP 與 RT 的取捨",
+      "full_title": "VII. Focal therapy、RP 與 RT 的取捨",
       "subsections": [
         {
           "title": "1. Focal therapy 的限制",
@@ -275,9 +275,9 @@
     },
     {
       "id": "tn_07",
-      "number": "八",
+      "number": "VIII",
       "title": "Advanced prostate cancer：mCSPC、mCRPC、ARPI、ADT、影像與後線治療",
-      "full_title": "八、Advanced prostate cancer：mCSPC、mCRPC、ARPI、ADT、影像與後線治療",
+      "full_title": "VIII. Advanced prostate cancer：mCSPC、mCRPC、ARPI、ADT、影像與後線治療",
       "subsections": [
         {
           "title": "1. 治療前影像與基礎評估",
@@ -317,9 +317,9 @@
     },
     {
       "id": "tn_08",
-      "number": "九",
+      "number": "IX",
       "title": "Bladder cancer、urine cytology 與 intravesical therapy",
-      "full_title": "九、Bladder cancer、urine cytology 與 intravesical therapy",
+      "full_title": "IX. Bladder cancer、urine cytology 與 intravesical therapy",
       "subsections": [
         {
           "title": "1. Urine cytology",
@@ -345,9 +345,9 @@
     },
     {
       "id": "tn_09",
-      "number": "十",
+      "number": "X",
       "title": "術後 PSA 與 TURP / TUEP 後追蹤",
-      "full_title": "十、術後 PSA 與 TURP / TUEP 後追蹤",
+      "full_title": "X. 術後 PSA 與 TURP / TUEP 後追蹤",
       "subsections": [
         {
           "title": "1. TURP / TUEP 後 PSA",
@@ -367,9 +367,9 @@
     },
     {
       "id": "tn_10",
-      "number": "十一",
+      "number": "XI",
       "title": "其他門診實用 pearls",
-      "full_title": "十一、其他門診實用 pearls",
+      "full_title": "XI. 其他門診實用 pearls",
       "subsections": [
         {
           "title": "1. Stone pain 的飲水衛教",
@@ -417,9 +417,9 @@
     },
     {
       "id": "tn_11",
-      "number": "十二",
+      "number": "XII",
       "title": "PHI（Prostate Health Index）重點整理",
-      "full_title": "十二、PHI（Prostate Health Index）重點整理",
+      "full_title": "XII. PHI（Prostate Health Index）重點整理",
       "subsections": [
         {
           "title": "1. PHI 的臨床定位",
@@ -449,9 +449,9 @@
     },
     {
       "id": "tn_12",
-      "number": "十四",
+      "number": "XIV",
       "title": "快速複習版",
-      "full_title": "十四、快速複習版",
+      "full_title": "XIV. 快速複習版",
       "subsections": [
         {
           "title": "",
