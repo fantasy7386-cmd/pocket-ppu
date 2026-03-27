@@ -658,6 +658,23 @@ body {
     flask: '🧪', book: '📘', heart: '❤️'
   };
 
+  // --- Force reset: add ?reset to URL to clear all caches ---
+  if (window.location.search.includes('reset')) {
+    (async () => {
+      // Unregister all service workers
+      const regs = await navigator.serviceWorker.getRegistrations();
+      for (const reg of regs) await reg.unregister();
+      // Clear all caches
+      const keys = await caches.keys();
+      for (const key of keys) await caches.delete(key);
+      // Clear localStorage
+      localStorage.removeItem('ppu_teaching_notes');
+      // Reload without ?reset
+      window.location.href = window.location.pathname;
+    })();
+    return;
+  }
+
   // --- Init ---
   async function init() {
     applyTheme();
