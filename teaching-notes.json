@@ -1,0 +1,478 @@
+{
+  "version": "1.0.0",
+  "updated": "2026-03-27",
+  "author": "PPu Teaching Faculty",
+  "total_sections": 13,
+  "sections": [
+    {
+      "id": "tn_00",
+      "number": "一",
+      "title": "LUTS、排尿機轉與門診功能評估",
+      "full_title": "一、LUTS、排尿機轉與門診功能評估",
+      "subsections": [
+        {
+          "title": "1. Uroflowmetry（UFM）判讀重點",
+          "items": [
+            "做 UFM 時，應避免病人刻意以腹壓或主動用力排尿，否則流速曲線可能失真。",
+            "膀胱充盈度需足夠，檢查時應有足量尿意，可理解為接近「七分滿」的狀態。",
+            "單看症狀不足以判斷排尿障礙，仍需結合 UFM 與整體臨床判讀。"
+          ]
+        },
+        {
+          "title": "2. Pelvic floor / Kegel 訓練的重點",
+          "items": [
+            "不只是要能將骨盆底肌收縮到最大，更重要的是能否完整放鬆。",
+            "收縮要到 maximal contraction，放鬆也要回到接近 baseline／0 的狀態。",
+            "若病人排尿時過度用力或骨盆底無法放鬆，可能干擾排尿功能判讀。"
+          ]
+        },
+        {
+          "title": "3. 坐姿排尿",
+          "items": [
+            "對部分無法放鬆骨盆底或排尿時容易用力的病人，可考慮坐姿排尿，以利放鬆。"
+          ]
+        },
+        {
+          "title": "4. Nocturia 與 nocturnal polyuria",
+          "items": [
+            "夜尿的評估不能只問次數，若懷疑 nocturnal polyuria，應請病人完成 bladder diary / voiding diary。",
+            "懷疑 nocturnal polyuria 時，應先做 diary，再決定進一步處理。"
+          ]
+        },
+        {
+          "title": "5. Terminal dribbling",
+          "items": [
+            "Terminal dribbling 雖非 IPSS / AUA-SI 的正式計分項目，但仍可能影響病人的實際困擾與治療結果。",
+            "年長病人常因膀胱收縮不全，排尿後仍有尿液滯留於 prostatic urethra 或 bulbar urethra，站起來後即出現滴尿。",
+            "門診衛教可包括會陰部擠壓（milking the urethra）與陰莖擠壓排空餘尿，以減少滴尿。"
+          ]
+        },
+        {
+          "title": "6. IPSS / AUA-SI 的臨床解讀",
+          "items": [
+            "IPSS 與 AUA-SI 在臨床上名稱脈絡相近，需熟悉其使用背景。",
+            "某些實際影響生活品質的症狀，如 terminal dribbling，雖未列入分數，仍不可忽略。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tn_01",
+      "number": "二",
+      "title": "Chronic prostatitis / CPPS",
+      "full_title": "二、Chronic prostatitis / CPPS",
+      "subsections": [
+        {
+          "title": "1. 症狀分布",
+          "items": [
+            "Chronic prostatitis / CPPS 的典型疼痛位置可包括會陰部與大腿內側。",
+            "典型位置未必是 scrotal pain，需注意疼痛分布是否符合 pelvic pain syndrome 的特徵。"
+          ]
+        },
+        {
+          "title": "2. 初步藥物試驗",
+          "items": [
+            "可先使用 celecoxib 觀察症狀是否改善。",
+            "可先以每日一次使用，症狀明顯改善後再降為隔日一次，最後視情況停藥。",
+            "Celecoxib 長期使用約 3 年，可能降低 colon/rectal cancer 風險，但仍可能影響腎功能，因此長期使用時需留意 renal function。"
+          ]
+        },
+        {
+          "title": "3. Prostatitis 與檢查結果不一致",
+          "items": [
+            "有 dysuria 或 painful voiding 並不一定是 acute urinary retention，也可能是 prostatitis。",
+            "即使是 prostatitis，urinalysis 也可能沒有明顯異常，不能因 U/A 清楚就完全排除。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tn_02",
+      "number": "三",
+      "title": "BPH、排尿症狀與常用藥物調整",
+      "full_title": "三、BPH、排尿症狀與常用藥物調整",
+      "subsections": [
+        {
+          "title": "1. Alpha-blocker 的調整",
+          "items": [
+            "Harnalidge（tamsulosin 類藥物）可依症狀與效果調整劑量。",
+            "經驗用法包括：",
+            "1 顆 BID 改為 2 顆 QD。",
+            "0.2 mg 製劑每日最高可到 4 顆。",
+            "劑量調整應同時留意低血壓、頭暈等副作用。"
+          ]
+        },
+        {
+          "title": "2. Doxazosin 類藥物",
+          "items": [
+            "Doxazosin / Doxaben 可上調至較高劑量。",
+            "教學重點傾向一天一次規律服用；若拆開服用，多半是為了減少副作用，而非提升藥效。"
+          ]
+        },
+        {
+          "title": "3. Minirin / Minrim（desmopressin 類）",
+          "items": [
+            "夜間頻尿或 nocturnal polyuria 的某些病人可能會使用此類藥物。",
+            "夜間使用時仍應注意整體水分平衡、血壓變化與電解質風險。"
+          ]
+        },
+        {
+          "title": "4. Female voiding dysfunction",
+          "items": [
+            "女性病人可使用低劑量 alpha-blocker，目的在於讓 bladder neck 更 open，以改善排尿。"
+          ]
+        },
+        {
+          "title": "5. Foley catheter 更換頻率",
+          "items": [
+            "一般 Foley catheter：大約每 2 週更換。",
+            "Silicone Foley：大約每 4 週更換。",
+            "Foley bag：大約每 1 週更換。"
+          ]
+        },
+        {
+          "title": "6. Acute urinary retention / overdistension",
+          "items": [
+            "無法排尿時，不一定都是感染或 prostatitis；需注意是否為膀胱過度擴張（overdistension）。",
+            "年長病人更常見混合型機轉，不宜單一歸因。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tn_03",
+      "number": "四",
+      "title": "PSA、PHI、free PSA、切片與 MRI",
+      "full_title": "四、PSA、PHI、free PSA、切片與 MRI",
+      "subsections": [
+        {
+          "title": "1. Borderline PSA 的輔助判斷",
+          "items": [
+            "PHI borderline 可抓約 35 作為一個門診判斷參考點。",
+            "在 borderline PSA 的情境下，可同時參考 free PSA。",
+            "PHI 的定位，是作為降低不必要 prostate biopsy 的輔助工具，而不是完全取代臨床判斷。"
+          ]
+        },
+        {
+          "title": "2. DRE 與 biopsy",
+          "items": [
+            "即使 PSA 正常，只要 DRE 觸及可疑病灶，仍可考慮做 prostate biopsy。",
+            "DRE 不能因 PSA 正常而被忽略。"
+          ]
+        },
+        {
+          "title": "3. Prostate biopsy 後 MRI 的時間點",
+          "items": [
+            "Prostate biopsy 後不宜太早做 MRI。",
+            "建議至少間隔約 6 週，以免 biopsy 後出血與組織變化影響影像判讀。"
+          ]
+        },
+        {
+          "title": "4. TRUS-guided biopsy 的感染風險",
+          "items": [
+            "TRUS biopsy 感染率約 2%。",
+            "教學上仍應提醒病人注意發燒、排尿症狀與感染徵象。"
+          ]
+        },
+        {
+          "title": "5. TRUS biopsy sample 的概念",
+          "items": [
+            "Biopsy core 的長度、形狀與 sample size 都會影響診斷品質。"
+          ]
+        },
+        {
+          "title": "6. MRI vs PHI 在 PCa 診斷的效能比較",
+          "items": [
+            "MRI 在診斷 prostate cancer 的 AUC 約 0.85，而 PHI 的 AUC 約 0.75。MRI 仍為目前診斷效能較高的工具。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tn_04",
+      "number": "五",
+      "title": "Prostate cancer：分期、TURP/TUEP 後 incidental cancer、MRI 與 DRE",
+      "full_title": "五、Prostate cancer：分期、TURP/TUEP 後 incidental cancer、MRI 與 DRE",
+      "subsections": [
+        {
+          "title": "1. TURP 後 incidental prostate cancer 分類",
+          "items": [
+            "若 TURP 病理中 incidental prostate cancer 占切除組織比例 <5%，歸為 T1a。",
+            "若占比 >5%，歸為 T1b。"
+          ]
+        },
+        {
+          "title": "2. DRE 與 MRI 在 staging 的角色",
+          "items": [
+            "AJCC 臨床分期仍重視 DRE。",
+            "MRI 與 DRE 在局部分期上各有強項，不應互相取代。",
+            "若懷疑 T3a，MRI 會更有幫助；其他情境下 DRE 仍具重要性。"
+          ]
+        },
+        {
+          "title": "3. PSA 上升的鑑別診斷",
+          "items": [
+            "PSA 升高不等於 prostate cancer，仍須將 prostatitis 納入鑑別。",
+            "門診判讀應整合 PSA、症狀、DRE、影像與必要時 biopsy。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tn_05",
+      "number": "六",
+      "title": "Active surveillance（AS）",
+      "full_title": "六、Active surveillance（AS）",
+      "subsections": [
+        {
+          "title": "1. AS 的核心不是只看 Gleason 總分",
+          "items": [
+            "對於 Gleason 3+4 的個案，不能只記錄為「3+4」，而要進一步看：",
+            "pattern 3 與 pattern 4 的比例",
+            "total cancer involvement / total cancer percentage",
+            "Gleason pattern 4 的百分比",
+            "這些資訊都會影響是否仍適合 active surveillance。"
+          ]
+        },
+        {
+          "title": "2. AS 追蹤工具",
+          "items": [
+            "MRI 與 repeat biopsy 都是 AS 的重要組成。",
+            "Repeat biopsy 的時間不宜拖太久，可抓不超過 6 個月。"
+          ]
+        },
+        {
+          "title": "3. 體積與進展風險",
+          "items": [
+            "即使是 seemingly low-grade disease，例如大量（profuse）3+3，仍可能在數年內出現 Gleason pattern 4 的進展。",
+            "教學上要重視病灶體積、比例與動態追蹤，而非只看單一次病理分級。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tn_06",
+      "number": "七",
+      "title": "Focal therapy、RP 與 RT 的取捨",
+      "full_title": "七、Focal therapy、RP 與 RT 的取捨",
+      "subsections": [
+        {
+          "title": "1. Focal therapy 的限制",
+          "items": [
+            "Focal treatment 主要針對患側病灶。",
+            "但 high-risk 病人對側仍可能有高比例的隱匿病灶，intermediate-risk 也不能過度樂觀。",
+            "因此 focal therapy 的前提是病人選擇要非常嚴格。"
+          ]
+        },
+        {
+          "title": "2. Radical prostatectomy（RP）與 radiotherapy（RT）",
+          "items": [
+            "教學重點為：在某些情境下，RP 與 RT 的 oncological control 可能接近。",
+            "真正差異常體現在 side effect profile，因此需由病人根據價值偏好做決策。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tn_07",
+      "number": "八",
+      "title": "Advanced prostate cancer：mCSPC、mCRPC、ARPI、ADT、影像與後線治療",
+      "full_title": "八、Advanced prostate cancer：mCSPC、mCRPC、ARPI、ADT、影像與後線治療",
+      "subsections": [
+        {
+          "title": "1. 治療前影像與基礎評估",
+          "items": [
+            "開始 ADT 前應先完成基礎檢驗，例如 PSA、testosterone、ALP、LDH，以及 spine X-ray。",
+            "若要做 staging MRI，應在開始系統治療前盡量完成。"
+          ]
+        },
+        {
+          "title": "2. mCSPC",
+          "items": [
+            "有脊椎轉移的 mCSPC 個案可考慮 ARPI。",
+            "若有 lung / bone metastasis，可考慮以 PSMA-PET 於治療後約 3–4 個月追蹤。"
+          ]
+        },
+        {
+          "title": "3. ARPI 序列與健保可近性",
+          "items": [
+            "若先使用 enzalutamide，之後 disease progression，健保下不一定能再接續使用 apalutamide。",
+            "這反映的是實務上的治療序列與給付限制問題。"
+          ]
+        },
+        {
+          "title": "4. Abi 與 Enza 的風險提醒",
+          "items": [
+            "Abiraterone 的 cardiovascular risk 較 enzalutamide 高。",
+            "實際用藥仍應依病人共病與風險因子綜合判斷。"
+          ]
+        },
+        {
+          "title": "5. mCRPC",
+          "items": [
+            "Lu-177 可作為 mCRPC 治療選項之一，且屬自費情境。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tn_08",
+      "number": "九",
+      "title": "Bladder cancer、urine cytology 與 intravesical therapy",
+      "full_title": "九、Bladder cancer、urine cytology 與 intravesical therapy",
+      "subsections": [
+        {
+          "title": "1. Urine cytology",
+          "items": [
+            "若 urine cytology 顯示 suspicious，對 urothelial carcinoma 的懷疑度非常高。",
+            "實務上應與 cystoscopy、影像與臨床症狀合併判讀。"
+          ]
+        },
+        {
+          "title": "2. Intravesical instillation 的目的",
+          "items": [
+            "灌注治療的目的是預防再發，而非單純處理當下症狀。",
+            "對 high-risk bladder cancer / CIS，可考慮 MDP 或 BCG 等灌注治療策略。"
+          ]
+        },
+        {
+          "title": "3. Blood clot tamponade",
+          "items": [
+            "Bladder tamponade with blood clot 可用於描述血塊造成膀胱出口阻塞的狀態。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tn_09",
+      "number": "十",
+      "title": "術後 PSA 與 TURP / TUEP 後追蹤",
+      "full_title": "十、術後 PSA 與 TURP / TUEP 後追蹤",
+      "subsections": [
+        {
+          "title": "1. TURP / TUEP 後 PSA",
+          "items": [
+            "TURP / TUEP 後，PSA 可能降至約 1 左右。",
+            "因此術後 PSA 的解讀應以新的 baseline 為主，不能直接拿術前數值比較。"
+          ]
+        },
+        {
+          "title": "2. 術後症狀評估",
+          "items": [
+            "若術後仍有漏尿或 urgency，應區分是 UUI 還是 SUI。",
+            "若 PSA 術後又再上升，需重新思考 residual gland、inflammation、infection 或 prostate cancer progression 等可能性。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tn_10",
+      "number": "十一",
+      "title": "其他門診實用 pearls",
+      "full_title": "十一、其他門診實用 pearls",
+      "subsections": [
+        {
+          "title": "1. Stone pain 的飲水衛教",
+          "items": [
+            "若是急性 stone pain 發作時，不建議一直大量喝水；可待疼痛緩解後再恢復正常補水。",
+            "這是門診中常用來修正常見迷思的實用提醒。"
+          ]
+        },
+        {
+          "title": "2. Testosterone 與後續檢查",
+          "items": [
+            "Testosterone 正常值大約在 17 左右。",
+            "若數值偏高，下一步可考慮 scrotal ultrasound。"
+          ]
+        },
+        {
+          "title": "3. ED 與藥物合併",
+          "items": [
+            "ED 病人可合併 alpha-blocker 與 Viga（應為 PDE5 inhibitor 類藥物）。",
+            "約有部分病人可能出現 hypotension、dizziness，因此應由低劑量起始並觀察副作用。"
+          ]
+        },
+        {
+          "title": "4. Fixed drug eruption",
+          "items": [
+            "有一位個案記錄 fixed drug eruption，並提及 HSV-I / HSV-II 檢驗。",
+            "此條較像個案討論重點，而非一般性原則。"
+          ]
+        },
+        {
+          "title": "5. HGPIN 與代謝物追蹤",
+          "items": [
+            "Decipher III：HGPIN，可先補充茄紅素 8 週，之後觀察 urine 代謝物有無差異，再評估後續處置。"
+          ]
+        },
+        {
+          "title": "6. Chemotherapy pre-medication 注意事項",
+          "items": [
+            "化療前的 pre-medication 可能導致病人頭暈不適。",
+            "Primperan (metoclopramide) 止吐劑量可達每公斤 0.5-1 mg，Q2H 給予。",
+            "**EPS (extrapyramidal symptoms) 最主要的表現是 akathisia（坐立難安）**，為 metoclopramide 等 dopamine antagonist 的已知副作用。使用高劑量時需特別留意。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tn_11",
+      "number": "十二",
+      "title": "PHI（Prostate Health Index）重點整理",
+      "full_title": "十二、PHI（Prostate Health Index）重點整理",
+      "subsections": [
+        {
+          "title": "1. PHI 的臨床定位",
+          "items": [
+            "PHI 結合 total PSA、free PSA 與 p2PSA。",
+            "主要用途在提高 clinically significant prostate cancer 的篩檢專一性，並減少不必要 biopsy。"
+          ]
+        },
+        {
+          "title": "2. 門診判斷上的用法",
+          "items": [
+            "在 PSA borderline、DRE 非明確異常、又猶豫是否切片的病人，PHI 可作為輔助資訊。",
+            "但 PHI 不應脫離臨床脈絡單獨使用。"
+          ]
+        },
+        {
+          "title": "3. PHI Cutoff Values (Evidence-Based, Updated 2026)",
+          "items": [
+            "PHI = (p2PSA / fPSA) × √tPSA. FDA approved (2012) for PSA 4-10 ng/mL with negative DRE.",
+            "**EAU 2025:** PHI &gt; 30 as MRI/biopsy threshold (avoids 25% unnecessary MRI, misses 8% GG2+).",
+            "**Meta-analysis (2022, n=14,255):** Sensitivity 0.874, Specificity 0.569 for csPCa. AUC 0.76.",
+            "**PHID (PHI density = PHI / prostate volume):** Emerging marker. Taiwan multicenter studies (Chang 2024, Chiu 2021) showed PHID superior to PHI for csPCa detection.",
+            "**Consensus:** NCCN, AUA, EAU all emphasize PHI should be combined with MRI, DRE, and clinical parameters for shared decision-making — not used in isolation."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tn_12",
+      "number": "十四",
+      "title": "快速複習版",
+      "full_title": "十四、快速複習版",
+      "subsections": [
+        {
+          "title": "",
+          "items": [
+            "做 UFM 時避免病人刻意用力；膀胱需有足夠充盈。",
+            "Kegel 訓練重點不只在收縮，也在完全放鬆。",
+            "Nocturia 懷疑 nocturnal polyuria 時，先做 bladder diary。",
+            "CPPS 典型疼痛位置偏會陰部與大腿內側，不一定是陰囊痛。",
+            "Celecoxib 可作為 CPPS 的症狀控制藥物，長期使用可能降低 colon/rectal cancer 風險，但需留意腎功能。",
+            "PSA 上升不只考慮癌症，也要想 prostatitis。",
+            "DRE 可疑即使 PSA 正常，仍可考慮 biopsy。",
+            "Prostate biopsy 後 MRI 最好間隔約 6 週。",
+            "TURP incidental cancer：5% 為 T1b。",
+            "Active surveillance 要看 total cancer volume、pattern 4 比例與 MRI / repeat biopsy。",
+            "RP 與 RT 常是 oncologic control 相近、side effect 不同的選擇。",
+            "mCSPC / mCRPC 的治療需同時考慮 staging、藥物序列、共病與給付限制。",
+            "Intravesical instillation 的目的是預防膀胱癌再發。",
+            "TURP / TUEP 後 PSA 需用新的 baseline 解讀。"
+          ]
+        }
+      ]
+    }
+  ]
+}

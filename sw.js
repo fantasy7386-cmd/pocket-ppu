@@ -6,6 +6,7 @@ const ASSETS = [
   './',
   './index.html',
   './data.json',
+  './teaching-notes.json',
   './manifest.json',
   './icon-192.png',
   './icon-512.png'

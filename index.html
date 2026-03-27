@@ -27,6 +27,12 @@
   --radius: 12px;
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --danger: #e74c3c;
+  --danger-light: #fdedec;
+  --success: #27ae60;
+  --success-light: #eafaf1;
+  --warning: #f39c12;
+  --warning-light: #fef9e7;
 }
 [data-theme="dark"] {
   --bg: #1a1a2e;
@@ -42,6 +48,12 @@
   --highlight: #4a3f00;
   --shadow: rgba(0,0,0,0.3);
   --cat-gradient: linear-gradient(135deg, #0f3460, #1a1a2e);
+  --danger: #e74c3c;
+  --danger-light: #3a1a1a;
+  --success: #2ecc71;
+  --success-light: #1a3a2a;
+  --warning: #f39c12;
+  --warning-light: #3a3010;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 body {
@@ -235,6 +247,27 @@ body {
   margin-bottom: 10px; font-weight: 500;
 }
 
+/* Search source group headers */
+.search-group-header {
+  font-size: 12px; font-weight: 700; color: var(--accent);
+  padding: 10px 0 6px; margin-top: 8px;
+  border-bottom: 1px solid var(--border);
+}
+.search-group-header:first-child { margin-top: 0; }
+
+/* Source badge */
+.source-badge {
+  display: inline-block; font-size: 10px; font-weight: 600;
+  padding: 2px 7px; border-radius: 8px; margin-left: 6px;
+  vertical-align: middle;
+}
+.source-badge.patient-ed {
+  background: var(--accent-light); color: var(--accent);
+}
+.source-badge.teaching-notes {
+  background: var(--warning-light); color: var(--warning);
+}
+
 /* Recent searches */
 .recent-header {
   font-size: 13px; color: var(--text-secondary); font-weight: 600;
@@ -312,6 +345,177 @@ body {
   line-height: 1.6;
 }
 
+/* === Teaching Notes styles === */
+.notes-grid { display: flex; flex-direction: column; gap: 10px; }
+.note-card {
+  background: var(--bg-card); border-radius: var(--radius);
+  padding: 16px; cursor: pointer;
+  border: 1px solid var(--border);
+  transition: transform 0.15s, box-shadow 0.15s;
+  display: flex; align-items: center; gap: 14px;
+}
+.note-card:active { transform: scale(0.98); }
+.note-card:hover { box-shadow: 0 4px 12px var(--shadow); }
+.note-number {
+  font-size: 22px; font-weight: 800; color: var(--accent);
+  background: var(--accent-light);
+  width: 44px; height: 44px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.note-card-info { flex: 1; min-width: 0; }
+.note-card-title { font-size: 14px; font-weight: 600; line-height: 1.4; margin-bottom: 4px; }
+.note-card-meta { font-size: 11px; color: var(--text-secondary); }
+
+/* Notes action bar */
+.notes-actions {
+  display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap;
+}
+.notes-actions .btn {
+  flex: 1; min-width: 120px; padding: 10px 14px;
+  border-radius: var(--radius); font-size: 13px; font-weight: 600;
+  cursor: pointer; border: none; transition: all 0.2s;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+}
+.btn-accent {
+  background: var(--accent); color: white;
+}
+.btn-accent:hover { opacity: 0.9; }
+.btn-outline {
+  background: var(--bg-card); color: var(--accent);
+  border: 1px solid var(--accent) !important;
+}
+.btn-outline:hover { background: var(--accent-light); }
+
+/* Local changes indicator */
+.local-indicator {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 11px; font-weight: 600; color: var(--warning);
+  background: var(--warning-light); padding: 3px 10px; border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+/* Note detail view */
+.note-detail {
+  background: var(--bg-card); border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+.note-detail-header {
+  padding: 16px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: flex-start; gap: 12px;
+}
+.note-detail-title { font-size: 18px; font-weight: 700; flex: 1; line-height: 1.4; }
+.note-detail-actions { display: flex; gap: 6px; flex-shrink: 0; }
+.note-detail-btn {
+  background: var(--accent-light); border: none; color: var(--accent);
+  width: 32px; height: 32px; border-radius: 50%; cursor: pointer;
+  font-size: 15px; display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s;
+}
+.note-detail-btn:hover { background: var(--accent); color: white; }
+.note-detail-body { padding: 16px; }
+.note-subsection { margin-bottom: 20px; }
+.note-subsection:last-child { margin-bottom: 0; }
+.note-subsection h4 {
+  font-size: 14px; font-weight: 700; color: var(--accent);
+  margin-bottom: 8px; line-height: 1.4;
+}
+.note-subsection ul {
+  list-style: none; padding: 0;
+}
+.note-subsection li {
+  font-size: 14px; line-height: 1.7;
+  padding: 4px 0 4px 20px;
+  position: relative; color: var(--text);
+}
+.note-subsection li::before {
+  content: '';
+  position: absolute; left: 6px; top: 12px;
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--accent);
+}
+.note-subsection li mark {
+  background: var(--highlight); color: var(--text);
+  padding: 1px 3px; border-radius: 2px;
+}
+
+/* Note edit view */
+.note-edit {
+  background: var(--bg-card); border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+.note-edit-header {
+  padding: 16px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 12px;
+}
+.note-edit-header-title {
+  font-size: 16px; font-weight: 700; flex: 1;
+}
+.note-edit-body { padding: 16px; }
+.note-edit-field { margin-bottom: 16px; }
+.note-edit-field label {
+  display: block; font-size: 12px; font-weight: 600;
+  color: var(--text-secondary); margin-bottom: 6px;
+}
+.note-edit-field input[type="text"],
+.note-edit-field textarea {
+  width: 100%; padding: 10px 12px;
+  border: 1px solid var(--border); border-radius: 8px;
+  background: var(--bg); color: var(--text);
+  font-size: 14px; font-family: inherit;
+  outline: none; transition: border-color 0.2s;
+}
+.note-edit-field input[type="text"]:focus,
+.note-edit-field textarea:focus {
+  border-color: var(--accent);
+}
+.note-edit-field textarea {
+  min-height: 100px; resize: vertical; line-height: 1.6;
+}
+.subsection-edit-block {
+  background: var(--bg); border-radius: var(--radius);
+  padding: 14px; margin-bottom: 12px;
+  border: 1px solid var(--border);
+  position: relative;
+}
+.subsection-edit-block .subsection-number {
+  font-size: 11px; color: var(--text-secondary); font-weight: 600;
+  margin-bottom: 8px;
+}
+.subsection-delete-btn {
+  position: absolute; top: 10px; right: 10px;
+  background: var(--danger-light); border: none; color: var(--danger);
+  width: 26px; height: 26px; border-radius: 50%; cursor: pointer;
+  font-size: 13px; display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s;
+}
+.subsection-delete-btn:hover { background: var(--danger); color: white; }
+.note-edit-actions {
+  display: flex; gap: 8px; padding: 16px;
+  border-top: 1px solid var(--border);
+}
+.note-edit-actions .btn {
+  flex: 1; padding: 12px; border-radius: var(--radius);
+  font-size: 14px; font-weight: 600; cursor: pointer;
+  border: none; transition: all 0.2s;
+  text-align: center;
+}
+.btn-success { background: var(--success); color: white; }
+.btn-success:hover { opacity: 0.9; }
+.btn-secondary { background: var(--bg); color: var(--text-secondary); border: 1px solid var(--border) !important; }
+.btn-secondary:hover { background: var(--border); }
+.btn-danger { background: var(--danger); color: white; }
+.btn-danger:hover { opacity: 0.9; }
+
+.add-subsection-btn {
+  width: 100%; padding: 10px; border-radius: 8px;
+  background: var(--accent-light); color: var(--accent);
+  border: 1px dashed var(--accent); cursor: pointer;
+  font-size: 13px; font-weight: 600;
+  transition: background 0.2s; margin-top: 4px;
+}
+.add-subsection-btn:hover { background: var(--accent); color: white; }
+
 /* Animations */
 @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 .fade-in { animation: fadeIn 0.2s ease-out; }
@@ -350,6 +554,7 @@ body {
 <div class="tab-bar" id="tab-bar">
   <button class="tab active" data-view="home">Home</button>
   <button class="tab" data-view="search">Search</button>
+  <button class="tab" data-view="notes">Notes</button>
   <button class="tab" data-view="glossary">Glossary</button>
   <button class="tab" data-view="favorites">Favorites</button>
 </div>
@@ -381,7 +586,27 @@ body {
   <div class="view" id="view-search">
     <div id="recent-searches"></div>
     <div class="search-results-header" id="search-header"></div>
-    <div class="article-list" id="search-results"></div>
+    <div id="search-results"></div>
+  </div>
+
+  <!-- NOTES VIEW -->
+  <div class="view" id="view-notes">
+    <div id="notes-local-indicator"></div>
+    <div class="notes-grid" id="notes-grid"></div>
+    <div class="notes-actions" id="notes-actions">
+      <button class="btn btn-outline" id="btn-add-section">+ Add Section</button>
+      <button class="btn btn-accent" id="btn-export-json">Export JSON</button>
+    </div>
+  </div>
+
+  <!-- NOTE DETAIL VIEW -->
+  <div class="view" id="view-note-detail">
+    <div class="note-detail" id="note-detail"></div>
+  </div>
+
+  <!-- NOTE EDIT VIEW -->
+  <div class="view" id="view-note-edit">
+    <div class="note-edit" id="note-edit"></div>
   </div>
 
   <!-- GLOSSARY VIEW -->
@@ -413,12 +638,16 @@ body {
 
   // --- State ---
   let DB = null;
+  let NOTES = null;
+  let notesSource = 'server'; // 'server' or 'local'
   let currentView = 'home';
   let previousView = 'home';
   let currentCategory = null;
   let currentArticle = null;
   let currentSearchQuery = '';
+  let currentNoteId = null;
   let favorites = JSON.parse(localStorage.getItem('ppu_favorites') || '[]');
+  let noteFavorites = JSON.parse(localStorage.getItem('ppu_note_favorites') || '[]');
   let recentSearches = JSON.parse(localStorage.getItem('ppu_recent') || '[]');
   let theme = localStorage.getItem('ppu_theme') || 'light';
 
@@ -433,10 +662,38 @@ body {
   async function init() {
     applyTheme();
     try {
-      const resp = await fetch('data.json');
-      DB = await resp.json();
+      const [dataResp, notesResp] = await Promise.all([
+        fetch('data.json'),
+        fetch('teaching-notes.json')
+      ]);
+      DB = await dataResp.json();
+      const serverNotes = await notesResp.json();
+
+      // Check localStorage for local edits
+      const localNotesRaw = localStorage.getItem('ppu_teaching_notes');
+      if (localNotesRaw) {
+        try {
+          const localNotes = JSON.parse(localNotesRaw);
+          // Use local if it has a newer or equal updated timestamp, or if it exists at all
+          if (localNotes.updated && localNotes.updated >= serverNotes.updated) {
+            NOTES = localNotes;
+            notesSource = 'local';
+          } else {
+            NOTES = serverNotes;
+            notesSource = 'server';
+          }
+        } catch (e) {
+          NOTES = serverNotes;
+          notesSource = 'server';
+        }
+      } else {
+        NOTES = serverNotes;
+        notesSource = 'server';
+      }
+
       buildCategoryGrid();
       buildGlossary();
+      buildNotesGrid();
       renderRecentSearches();
     } catch (e) {
       document.getElementById('cat-grid').innerHTML =
@@ -569,41 +826,104 @@ body {
   function performSearch(query) {
     if (!DB) return;
     const q = query.toLowerCase();
-    const results = [];
+    const articleResults = [];
+    const noteResults = [];
 
+    // Search articles
     for (const article of DB.articles) {
       let score = 0;
       const titleLower = article.title.toLowerCase();
       const textLower = article.text.toLowerCase();
 
-      // Title match (highest weight)
       if (titleLower.includes(q)) score += 100;
-      // Keyword match
       if (article.keywords.some(k => k.toLowerCase().includes(q))) score += 50;
-      // Text match (count occurrences, cap at 20)
       const matches = textLower.split(q).length - 1;
       if (matches > 0) score += Math.min(matches * 5, 100);
 
       if (score > 0) {
-        results.push({ article, score });
+        articleResults.push({ article, score, type: 'article' });
       }
     }
 
-    results.sort((a, b) => b.score - a.score);
+    // Search teaching notes
+    if (NOTES && NOTES.sections) {
+      for (const section of NOTES.sections) {
+        let score = 0;
+        const titleLower = (section.title + ' ' + section.full_title).toLowerCase();
+        const flatText = flattenNoteSection(section).toLowerCase();
 
+        if (titleLower.includes(q)) score += 100;
+        const matches = flatText.split(q).length - 1;
+        if (matches > 0) score += Math.min(matches * 5, 100);
+
+        if (score > 0) {
+          noteResults.push({ section, score, type: 'note' });
+        }
+      }
+    }
+
+    articleResults.sort((a, b) => b.score - a.score);
+    noteResults.sort((a, b) => b.score - a.score);
+
+    const totalCount = articleResults.length + noteResults.length;
     const header = document.getElementById('search-header');
     const container = document.getElementById('search-results');
 
-    if (results.length === 0) {
-      header.textContent = `No results for "${query}"`;
+    if (totalCount === 0) {
+      header.textContent = 'No results for "' + query + '"';
       container.innerHTML = '';
     } else {
-      header.textContent = `${results.length} result${results.length > 1 ? 's' : ''} for "${query}"`;
-      container.innerHTML = results.map(r => articleItemHTML(r.article, query)).join('');
+      header.textContent = totalCount + ' result' + (totalCount > 1 ? 's' : '') + ' for "' + query + '"';
+      let html = '';
+
+      if (articleResults.length > 0) {
+        html += '<div class="search-group-header">\uD83D\uDCCB Patient Education (' + articleResults.length + ')</div>';
+        html += '<div class="article-list">';
+        html += articleResults.map(r => articleItemHTML(r.article, query)).join('');
+        html += '</div>';
+      }
+
+      if (noteResults.length > 0) {
+        html += '<div class="search-group-header">\uD83D\uDCDD Teaching Notes (' + noteResults.length + ')</div>';
+        html += '<div class="article-list">';
+        html += noteResults.map(r => noteSearchItemHTML(r.section, query)).join('');
+        html += '</div>';
+      }
+
+      container.innerHTML = html;
     }
 
-    // Save to recent
     addRecentSearch(query);
+  }
+
+  function flattenNoteSection(section) {
+    let text = section.title + ' ' + section.full_title + ' ';
+    if (section.subsections) {
+      for (const sub of section.subsections) {
+        text += sub.title + ' ';
+        if (sub.items) {
+          text += sub.items.join(' ') + ' ';
+        }
+      }
+    }
+    return text;
+  }
+
+  function noteSearchItemHTML(section, query) {
+    const flatText = flattenNoteSection(section);
+    const preview = getSearchPreview(flatText, query);
+    return `
+      <div class="article-item fade-in" data-note-id="${section.id}">
+        <div style="font-size:22px;flex-shrink:0;width:28px;text-align:center">\uD83D\uDCDD</div>
+        <div class="article-info">
+          <div class="article-title">${highlightText(section.full_title, query)}
+            <span class="source-badge teaching-notes">Teaching Notes</span>
+          </div>
+          <div class="article-meta">${section.subsections.length} subsections</div>
+          ${preview ? '<div class="article-preview">' + preview + '</div>' : ''}
+        </div>
+      </div>
+    `;
   }
 
   function getSearchPreview(text, query) {
@@ -661,7 +981,6 @@ body {
       return a.localeCompare(b, 'zh-TW');
     });
 
-    // Group: English first, then Chinese
     const groups = {};
     terms.forEach(term => {
       const isEn = /^[a-zA-Z]/.test(term);
@@ -693,6 +1012,13 @@ body {
     renderFavorites();
   }
 
+  function toggleNoteFavorite(noteId) {
+    const idx = noteFavorites.indexOf(noteId);
+    if (idx >= 0) noteFavorites.splice(idx, 1);
+    else noteFavorites.push(noteId);
+    localStorage.setItem('ppu_note_favorites', JSON.stringify(noteFavorites));
+  }
+
   function renderFavorites() {
     const container = document.getElementById('fav-articles');
     const empty = document.getElementById('fav-empty');
@@ -706,9 +1032,231 @@ body {
     }
   }
 
+  // === Teaching Notes ===
+
+  function buildNotesGrid() {
+    if (!NOTES || !NOTES.sections) return;
+    const grid = document.getElementById('notes-grid');
+    const indicator = document.getElementById('notes-local-indicator');
+
+    if (notesSource === 'local') {
+      indicator.innerHTML = '<span class="local-indicator">\u26A0\uFE0F Local changes (not synced)</span>';
+    } else {
+      indicator.innerHTML = '';
+    }
+
+    grid.innerHTML = NOTES.sections.map(section => `
+      <div class="note-card fade-in" data-note-id="${section.id}">
+        <div class="note-number">${section.number}</div>
+        <div class="note-card-info">
+          <div class="note-card-title">${section.title}</div>
+          <div class="note-card-meta">${section.subsections.length} subsection${section.subsections.length !== 1 ? 's' : ''}</div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function showNoteDetail(noteId, query) {
+    const section = NOTES.sections.find(s => s.id === noteId);
+    if (!section) return;
+    currentNoteId = noteId;
+
+    const isFav = noteFavorites.includes(noteId);
+
+    let bodyHTML = '';
+    for (const sub of section.subsections) {
+      bodyHTML += '<div class="note-subsection">';
+      if (sub.title) {
+        bodyHTML += '<h4>' + (query ? highlightText(escapeHTML(sub.title), query) : escapeHTML(sub.title)) + '</h4>';
+      }
+      if (sub.items && sub.items.length > 0) {
+        bodyHTML += '<ul>';
+        for (const item of sub.items) {
+          bodyHTML += '<li>' + (query ? highlightText(escapeHTML(item), query) : escapeHTML(item)) + '</li>';
+        }
+        bodyHTML += '</ul>';
+      }
+      bodyHTML += '</div>';
+    }
+
+    document.getElementById('note-detail').innerHTML = `
+      <div class="note-detail-header">
+        <button class="article-viewer-back" id="note-detail-back">\u2190</button>
+        <div class="note-detail-title">${escapeHTML(section.full_title)}</div>
+        <div class="note-detail-actions">
+          <button class="note-detail-btn" id="note-fav-btn" data-note-fav="${noteId}" title="Toggle favorite">
+            ${isFav ? '\u2B50' : '\u2606'}
+          </button>
+          <button class="note-detail-btn" id="note-edit-btn" data-note-edit="${noteId}" title="Edit">
+            \u270E
+          </button>
+        </div>
+      </div>
+      <div class="note-detail-body">${bodyHTML}</div>
+    `;
+    switchView('note-detail');
+    window.scrollTo(0, 0);
+  }
+
+  function showNoteEdit(noteId) {
+    let section;
+    let isNew = false;
+
+    if (noteId === '__new__') {
+      isNew = true;
+      section = {
+        id: 'tn_' + Date.now(),
+        number: '',
+        title: '',
+        full_title: '',
+        subsections: [{ title: '', items: [''] }]
+      };
+    } else {
+      const original = NOTES.sections.find(s => s.id === noteId);
+      if (!original) return;
+      section = JSON.parse(JSON.stringify(original));
+    }
+
+    currentNoteId = section.id;
+
+    let subsectionsHTML = '';
+    section.subsections.forEach((sub, i) => {
+      subsectionsHTML += buildSubsectionEditBlock(sub, i);
+    });
+
+    document.getElementById('note-edit').innerHTML = `
+      <div class="note-edit-header">
+        <button class="article-viewer-back" id="note-edit-back">\u2190</button>
+        <div class="note-edit-header-title">${isNew ? 'Add New Section' : 'Edit Section'}</div>
+      </div>
+      <div class="note-edit-body">
+        <div class="note-edit-field">
+          <label>Section Number (e.g. \u4E00, \u4E8C, \u4E09)</label>
+          <input type="text" id="edit-section-number" value="${escapeAttr(section.number)}" placeholder="e.g. \u5341\u4E94">
+        </div>
+        <div class="note-edit-field">
+          <label>Section Title</label>
+          <input type="text" id="edit-section-title" value="${escapeAttr(section.title)}" placeholder="e.g. LUTS\u3001\u6392\u5C3F\u6A5F\u8F49\u8207\u9580\u8A3A\u529F\u80FD\u8A55\u4F30">
+        </div>
+        <div class="note-edit-field">
+          <label>Subsections</label>
+          <div id="edit-subsections">${subsectionsHTML}</div>
+          <button class="add-subsection-btn" id="btn-add-subsection">+ Add Subsection</button>
+        </div>
+      </div>
+      <div class="note-edit-actions">
+        <button class="btn btn-secondary" id="btn-edit-cancel">Cancel</button>
+        <button class="btn btn-success" id="btn-edit-save" data-note-save="${section.id}" data-is-new="${isNew}">\u2713 Save</button>
+      </div>
+    `;
+    switchView('note-edit');
+    window.scrollTo(0, 0);
+  }
+
+  function buildSubsectionEditBlock(sub, index) {
+    return `
+      <div class="subsection-edit-block" data-sub-index="${index}">
+        <div class="subsection-number">Subsection ${index + 1}</div>
+        <button class="subsection-delete-btn" data-delete-sub="${index}" title="Delete subsection">\u2715</button>
+        <div class="note-edit-field" style="margin-bottom:8px">
+          <label>Subsection Title</label>
+          <input type="text" class="sub-title-input" value="${escapeAttr(sub.title)}" placeholder="e.g. 1. Uroflowmetry (UFM) \u5224\u8B80\u91CD\u9EDE">
+        </div>
+        <div class="note-edit-field" style="margin-bottom:0">
+          <label>Items (one per line)</label>
+          <textarea class="sub-items-input" placeholder="Enter items, one per line">${escapeHTML(sub.items ? sub.items.join('\n') : '')}</textarea>
+        </div>
+      </div>
+    `;
+  }
+
+  function saveNoteEdit(noteId, isNew) {
+    const number = document.getElementById('edit-section-number').value.trim();
+    const title = document.getElementById('edit-section-title').value.trim();
+    const fullTitle = number ? number + '\u3001' + title : title;
+
+    const subsections = [];
+    const blocks = document.querySelectorAll('#edit-subsections .subsection-edit-block');
+    blocks.forEach(block => {
+      const subTitle = block.querySelector('.sub-title-input').value.trim();
+      const subItemsRaw = block.querySelector('.sub-items-input').value;
+      const items = subItemsRaw.split('\n').filter(line => line.trim() !== '');
+      subsections.push({ title: subTitle, items: items });
+    });
+
+    if (isNew) {
+      NOTES.sections.push({
+        id: noteId,
+        number: number,
+        title: title,
+        full_title: fullTitle,
+        subsections: subsections
+      });
+      NOTES.total_sections = NOTES.sections.length;
+    } else {
+      const idx = NOTES.sections.findIndex(s => s.id === noteId);
+      if (idx >= 0) {
+        NOTES.sections[idx].number = number;
+        NOTES.sections[idx].title = title;
+        NOTES.sections[idx].full_title = fullTitle;
+        NOTES.sections[idx].subsections = subsections;
+      }
+    }
+
+    // Update timestamp and save to localStorage
+    NOTES.updated = new Date().toISOString().slice(0, 10);
+    localStorage.setItem('ppu_teaching_notes', JSON.stringify(NOTES));
+    notesSource = 'local';
+
+    buildNotesGrid();
+
+    if (isNew) {
+      switchView('notes');
+    } else {
+      showNoteDetail(noteId);
+    }
+  }
+
+  function deleteSubsection(index) {
+    const blocks = document.querySelectorAll('#edit-subsections .subsection-edit-block');
+    if (blocks.length <= 1) {
+      alert('Cannot delete the last subsection.');
+      return;
+    }
+    if (!confirm('Delete subsection ' + (index + 1) + '?')) return;
+    blocks[index].remove();
+    // Re-index
+    document.querySelectorAll('#edit-subsections .subsection-edit-block').forEach((block, i) => {
+      block.dataset.subIndex = i;
+      block.querySelector('.subsection-number').textContent = 'Subsection ' + (i + 1);
+      block.querySelector('.subsection-delete-btn').dataset.deleteSub = i;
+    });
+  }
+
+  function addSubsection() {
+    const container = document.getElementById('edit-subsections');
+    const count = container.querySelectorAll('.subsection-edit-block').length;
+    const newBlock = document.createElement('div');
+    newBlock.innerHTML = buildSubsectionEditBlock({ title: '', items: [] }, count);
+    container.appendChild(newBlock.firstElementChild);
+  }
+
+  function exportNotesJSON() {
+    const dataStr = JSON.stringify(NOTES, null, 2);
+    const blob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'teaching-notes.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
   // --- View management ---
   function switchView(name) {
-    if (name !== 'article' && name !== 'search') previousView = currentView;
+    if (name !== 'article' && name !== 'search' && name !== 'note-detail' && name !== 'note-edit') previousView = currentView;
     currentView = name;
     document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
 
@@ -716,6 +1264,9 @@ body {
       home: 'view-home',
       category: 'view-category',
       search: 'view-search',
+      notes: 'view-notes',
+      'note-detail': 'view-note-detail',
+      'note-edit': 'view-note-edit',
       glossary: 'view-glossary',
       favorites: 'view-favorites',
       article: 'view-article'
@@ -725,9 +1276,12 @@ body {
 
     // Update tabs
     document.querySelectorAll('.tab').forEach(t => {
-      t.classList.toggle('active', t.dataset.view === name ||
-        (name === 'category' && t.dataset.view === 'home') ||
-        (name === 'article' && t.dataset.view === (previousView || 'home'))
+      const tv = t.dataset.view;
+      t.classList.toggle('active',
+        tv === name ||
+        (name === 'category' && tv === 'home') ||
+        (name === 'article' && tv === (previousView || 'home')) ||
+        ((name === 'note-detail' || name === 'note-edit') && tv === 'notes')
       );
     });
 
@@ -738,6 +1292,16 @@ body {
   function getCatName(catId) {
     const cat = DB.categories.find(c => c.id === catId);
     return cat ? cat.name_zh : catId;
+  }
+
+  function escapeHTML(str) {
+    if (!str) return '';
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  function escapeAttr(str) {
+    if (!str) return '';
+    return str.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   }
 
   // --- Events ---
@@ -783,18 +1347,94 @@ body {
     // Category back
     document.getElementById('cat-back').addEventListener('click', () => switchView('home'));
 
-    // Article clicks (delegation)
+    // Notes view buttons
+    document.getElementById('btn-add-section').addEventListener('click', () => {
+      showNoteEdit('__new__');
+    });
+
+    document.getElementById('btn-export-json').addEventListener('click', exportNotesJSON);
+
+    // Notes grid clicks
+    document.getElementById('notes-grid').addEventListener('click', e => {
+      const card = e.target.closest('.note-card');
+      if (card) {
+        showNoteDetail(card.dataset.noteId);
+      }
+    });
+
+    // Main content delegation
     document.getElementById('main').addEventListener('click', e => {
-      // Favorite button
+      // Favorite button (articles)
       const favBtn = e.target.closest('[data-fav]');
       if (favBtn) {
         e.stopPropagation();
         toggleFavorite(favBtn.dataset.fav);
-        // Update UI
         favBtn.classList.toggle('fav');
         const isFav = favorites.includes(favBtn.dataset.fav);
         favBtn.textContent = isFav ? '⭐' : '☆';
         favBtn.style.opacity = isFav ? 1 : 0.3;
+        return;
+      }
+
+      // Note favorite button
+      const noteFavBtn = e.target.closest('[data-note-fav]');
+      if (noteFavBtn) {
+        e.stopPropagation();
+        const nid = noteFavBtn.dataset.noteFav;
+        toggleNoteFavorite(nid);
+        const isFav = noteFavorites.includes(nid);
+        noteFavBtn.textContent = isFav ? '\u2B50' : '\u2606';
+        return;
+      }
+
+      // Note edit button
+      const noteEditBtn = e.target.closest('[data-note-edit]');
+      if (noteEditBtn) {
+        e.stopPropagation();
+        showNoteEdit(noteEditBtn.dataset.noteEdit);
+        return;
+      }
+
+      // Note detail back
+      if (e.target.closest('#note-detail-back')) {
+        switchView('notes');
+        return;
+      }
+
+      // Note edit back / cancel
+      if (e.target.closest('#note-edit-back') || e.target.closest('#btn-edit-cancel')) {
+        if (currentView === 'note-edit') {
+          // If editing an existing note, go back to detail; if new, go to notes list
+          const saveBtn = document.querySelector('[data-note-save]');
+          if (saveBtn && saveBtn.dataset.isNew === 'true') {
+            switchView('notes');
+          } else {
+            showNoteDetail(currentNoteId);
+          }
+        }
+        return;
+      }
+
+      // Note edit save
+      const saveBtn = e.target.closest('[data-note-save]');
+      if (saveBtn) {
+        const nid = saveBtn.dataset.noteSave;
+        const isNew = saveBtn.dataset.isNew === 'true';
+        saveNoteEdit(nid, isNew);
+        return;
+      }
+
+      // Delete subsection
+      const delSubBtn = e.target.closest('[data-delete-sub]');
+      if (delSubBtn) {
+        e.stopPropagation();
+        deleteSubsection(parseInt(delSubBtn.dataset.deleteSub, 10));
+        return;
+      }
+
+      // Add subsection
+      if (e.target.closest('#btn-add-subsection')) {
+        addSubsection();
         return;
       }
 
@@ -828,9 +1468,16 @@ body {
         return;
       }
 
+      // Note item from search results
+      const noteItem = e.target.closest('[data-note-id]');
+      if (noteItem && !noteItem.classList.contains('note-card')) {
+        showNoteDetail(noteItem.dataset.noteId, currentView === 'search' ? currentSearchQuery : '');
+        return;
+      }
+
       // Article item
       const item = e.target.closest('.article-item');
-      if (item) {
+      if (item && item.dataset.id) {
         showArticle(item.dataset.id, currentView === 'search' ? currentSearchQuery : '');
         return;
       }
@@ -852,6 +1499,15 @@ body {
       if (e.key === 'Escape') {
         searchInput.blur();
         if (currentView === 'article') switchView(previousView || 'home');
+        if (currentView === 'note-detail') switchView('notes');
+        if (currentView === 'note-edit') {
+          const saveBtn = document.querySelector('[data-note-save]');
+          if (saveBtn && saveBtn.dataset.isNew === 'true') {
+            switchView('notes');
+          } else {
+            showNoteDetail(currentNoteId);
+          }
+        }
       }
     });
   }
