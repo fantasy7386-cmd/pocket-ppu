@@ -148,6 +148,25 @@ def find_related(articles, new_article):
     return [r["id"] for r in related[:5]]
 
 
+def bump_sw_version():
+    """Update the Service Worker cache version so phones pick up changes."""
+    sw_path = os.path.join(SCRIPT_DIR, "sw.js")
+    if not os.path.exists(sw_path):
+        return
+    with open(sw_path, "r") as f:
+        content = f.read()
+    # Replace version timestamp
+    new_version = datetime.now().strftime("v%Y%m%d.%H%M")
+    content = re.sub(
+        r"const CACHE_VERSION = '[^']*'",
+        f"const CACHE_VERSION = '{new_version}'",
+        content
+    )
+    with open(sw_path, "w") as f:
+        f.write(content)
+    print(f"  Service Worker version bumped to: {new_version}")
+
+
 def next_article_id(data):
     """Get the next available article ID."""
     existing = [int(a["id"].replace("art_", "")) for a in data["articles"]]
@@ -193,6 +212,9 @@ def save_data(data):
 
     with open(DATA_FILE, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
+
+    # Bump Service Worker version so phones pick up the update
+    bump_sw_version()
 
     size_kb = os.path.getsize(DATA_FILE) / 1024
     print(f"  Database saved: {data['total_articles']} articles, {size_kb:.0f} KB")
