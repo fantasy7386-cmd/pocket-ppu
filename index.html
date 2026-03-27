@@ -793,6 +793,14 @@ body {
         <span>${article.text.length.toLocaleString()} chars</span>
       </div>
       <div class="article-viewer-body">${bodyText}</div>
+      ${article.pdf_url ? `
+        <div style="padding:12px 16px;border-top:1px solid var(--border);">
+          <a href="${article.pdf_url}" target="_blank" rel="noopener"
+             style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:var(--accent);color:white;border-radius:8px;text-decoration:none;font-size:13px;font-weight:500;">
+            📄 View Original PDF (with figures)
+          </a>
+        </div>
+      ` : ''}
       ${article.keywords.length > 0 ? `
         <div class="article-viewer-keywords">
           ${article.keywords.map(k => `<button class="keyword-tag" data-kw="${k}">${k}</button>`).join('')}
