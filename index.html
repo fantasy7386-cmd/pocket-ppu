@@ -532,6 +532,20 @@ body {
 </head>
 <body>
 
+<!-- ACCESS GATE -->
+<div id="access-gate" style="display:none;position:fixed;inset:0;z-index:9999;background:linear-gradient(135deg,#1a5276,#2980b9);display:flex;align-items:center;justify-content:center;">
+  <div style="background:#fff;border-radius:16px;padding:40px 32px;max-width:340px;width:90%;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,0.2);">
+    <div style="font-size:36px;font-weight:700;color:#1a5276;margin-bottom:4px;">Pocket PPu</div>
+    <div style="font-size:13px;color:#7f8c8d;margin-bottom:24px;">Urology Patient Education Reference</div>
+    <input id="access-code-input" type="text" placeholder="Enter access code"
+      style="width:100%;padding:12px 16px;border:2px solid #e0e4e8;border-radius:8px;font-size:16px;text-align:center;outline:none;margin-bottom:12px;letter-spacing:2px;"
+      autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false">
+    <div id="access-error" style="color:#e74c3c;font-size:12px;min-height:18px;margin-bottom:12px;"></div>
+    <button id="access-submit" style="width:100%;padding:12px;background:#1a5276;color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;">Enter</button>
+    <div style="margin-top:20px;font-size:10px;color:#bdc3c7;">Contact the administrator for access</div>
+  </div>
+</div>
+
 <div class="header">
   <div class="header-top">
     <div>
@@ -661,19 +675,91 @@ body {
   // --- Force reset: add ?reset to URL to clear all caches ---
   if (window.location.search.includes('reset')) {
     (async () => {
-      // Unregister all service workers
       const regs = await navigator.serviceWorker.getRegistrations();
       for (const reg of regs) await reg.unregister();
-      // Clear all caches
       const keys = await caches.keys();
       for (const key of keys) await caches.delete(key);
-      // Clear localStorage
       localStorage.removeItem('ppu_teaching_notes');
-      // Reload without ?reset
+      // Don't clear access code on reset
       window.location.href = window.location.pathname;
     })();
     return;
   }
+
+  // --- Access Control ---
+  // ADMIN: Edit this list to add/remove access codes
+  // ===== ACCESS CODES (員編) =====
+  // Format: 'EMPLOYEE_ID',  // Name
+  // To add: add a new line, save, git push
+  // To remove: delete the line, save, git push
+  const VALID_CODES = [
+    'ADMIN',        // 管理員
+    '123944',       // 總院吳
+    'Y08594',       // 雲林吳
+  ];
+  // ===== END ACCESS CODES =====
+
+  // Google Sheet logging endpoint (Apps Script web app URL)
+  // Set this after deploying the Apps Script
+  const LOG_ENDPOINT = '';
+
+  function logAccess(code) {
+    if (!LOG_ENDPOINT) return;
+    const data = {
+      code: code,
+      time: new Date().toISOString(),
+      device: navigator.userAgent.includes('iPhone') ? 'iPhone' :
+              navigator.userAgent.includes('Android') ? 'Android' :
+              navigator.userAgent.includes('Mac') ? 'Mac' :
+              navigator.userAgent.includes('Windows') ? 'Windows' : 'Other',
+      ua: navigator.userAgent.substring(0, 150)
+    };
+    fetch(LOG_ENDPOINT, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    }).catch(() => {});
+  }
+
+  function checkAccess() {
+    const saved = localStorage.getItem('ppu_access_code');
+    if (saved && VALID_CODES.includes(saved.toUpperCase())) {
+      // Already authenticated
+      document.getElementById('access-gate').style.display = 'none';
+      return true;
+    }
+    // Show gate
+    document.getElementById('access-gate').style.display = 'flex';
+    const input = document.getElementById('access-code-input');
+    const error = document.getElementById('access-error');
+    const submit = document.getElementById('access-submit');
+
+    function tryAccess() {
+      const code = input.value.trim().toUpperCase();
+      if (!code) {
+        error.textContent = 'Please enter an access code';
+        return;
+      }
+      if (VALID_CODES.includes(code)) {
+        localStorage.setItem('ppu_access_code', code);
+        document.getElementById('access-gate').style.display = 'none';
+        logAccess(code);
+        init();
+      } else {
+        error.textContent = 'Invalid access code';
+        input.value = '';
+        input.focus();
+      }
+    }
+
+    submit.addEventListener('click', tryAccess);
+    input.addEventListener('keydown', e => { if (e.key === 'Enter') tryAccess(); });
+    input.focus();
+    return false;
+  }
+
+  if (!checkAccess()) return;
 
   // --- Init ---
   async function init() {
