@@ -134,6 +134,8 @@ body {
   transition: all 0.2s; white-space: nowrap;
 }
 .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+.tab[data-view="notes"] { color: var(--success); }
+.tab[data-view="notes"].active { color: var(--success); border-bottom-color: var(--success); }
 
 /* Main content */
 .main { padding: 12px 12px calc(var(--safe-bottom) + 12px); max-width: 800px; margin: 0 auto; }
@@ -608,8 +610,9 @@ body {
     <div id="notes-local-indicator"></div>
     <div class="notes-grid" id="notes-grid"></div>
     <div class="notes-actions" id="notes-actions">
-      <button class="btn btn-outline" id="btn-add-section">+ Add Section</button>
-      <button class="btn btn-accent" id="btn-sync-github">⬆ Sync to GitHub</button>
+      <button class="btn btn-outline" id="btn-add-section" style="display:none">+ Add Section</button>
+      <button class="btn btn-accent" id="btn-sync-github" style="display:none">⬆ Sync to GitHub</button>
+      <button class="btn btn-outline" id="btn-suggest-note" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSd5EDJWg4m2td7gLAa4m43oYjmaI3FO4rvp6NrZCdfBJAZwbA/viewform','_blank')" style="width:100%">📋 投稿建議</button>
     </div>
   </div>
 
@@ -801,6 +804,7 @@ body {
       buildGlossary();
       buildNotesGrid();
       renderRecentSearches();
+      updateAdminUI();
     } catch (e) {
       document.getElementById('cat-grid').innerHTML =
         '<div class="empty-state"><div class="empty-state-text">Failed to load data. Please refresh.</div></div>';
@@ -1201,7 +1205,7 @@ body {
           <button class="note-detail-btn" id="note-fav-btn" data-note-fav="${noteId}" title="Toggle favorite">
             ${isFav ? '\u2B50' : '\u2606'}
           </button>
-          <button class="note-detail-btn" id="note-edit-btn" data-note-edit="${noteId}" title="Edit">
+          <button class="note-detail-btn" id="note-edit-btn" data-note-edit="${noteId}" title="Edit" style="${isAdmin() ? '' : 'display:none'}">
             \u270E
           </button>
         </div>
@@ -1368,10 +1372,23 @@ body {
     URL.revokeObjectURL(url);
   }
 
+  // --- Admin detection ---
+  const GH_TOKEN_KEY = 'ppu_gh_token';
+  function isAdmin() { return !!localStorage.getItem(GH_TOKEN_KEY); }
+
+  function updateAdminUI() {
+    const admin = isAdmin();
+    const addBtn = document.getElementById('btn-add-section');
+    const syncBtn = document.getElementById('btn-sync-github');
+    const suggestBtn = document.getElementById('btn-suggest-note');
+    if (addBtn) addBtn.style.display = admin ? '' : 'none';
+    if (syncBtn) syncBtn.style.display = admin ? '' : 'none';
+    if (suggestBtn) suggestBtn.style.display = admin ? 'none' : '';
+  }
+
   // --- GitHub Sync: push teaching-notes.json directly from browser ---
   const GH_REPO = 'fantasy7386-cmd/pocket-ppu';
   const GH_FILE = 'teaching-notes.json';
-  const GH_TOKEN_KEY = 'ppu_gh_token';
 
   async function syncToGitHub() {
     let token = localStorage.getItem(GH_TOKEN_KEY);
