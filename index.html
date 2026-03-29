@@ -1164,13 +1164,19 @@ body {
     }
 
     const admin = isAdmin();
+    const lastIdx = NOTES.sections.length - 1;
     grid.innerHTML = NOTES.sections.map((section, idx) => `
-      <div class="note-card fade-in" data-note-id="${section.id}">
+      <div class="note-card fade-in" data-note-id="${section.id}" style="position:relative;">
         <div class="note-number">${section.number}</div>
         <div class="note-card-info">
           <div class="note-card-title">${section.title}</div>
           <div class="note-card-meta">${section.subsections.length} subsection${section.subsections.length !== 1 ? 's' : ''}</div>
         </div>
+        ${admin ? `<div class="section-admin-actions" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:2px;">
+          ${idx > 0 ? `<button data-move-section-up="${idx}" title="Move up" style="border:none;background:none;font-size:14px;cursor:pointer;padding:2px 4px;opacity:0.5;">▲</button>` : ''}
+          ${idx < lastIdx ? `<button data-move-section-down="${idx}" title="Move down" style="border:none;background:none;font-size:14px;cursor:pointer;padding:2px 4px;opacity:0.5;">▼</button>` : ''}
+          <button data-delete-section="${idx}" title="Delete section" style="border:none;background:none;font-size:12px;cursor:pointer;padding:2px 4px;color:var(--danger);opacity:0.5;">✕</button>
+        </div>` : ''}
       </div>${admin ? `<button class="btn-insert-section" data-insert-after="${idx}" title="Insert section here" style="display:block;width:100%;border:none;background:none;color:var(--success);font-size:18px;padding:2px 0;cursor:pointer;opacity:0.4;">＋</button>` : ''}
     `).join('');
   }
@@ -1257,8 +1263,8 @@ body {
       </div>
       <div class="note-edit-body">
         <div class="note-edit-field">
-          <label>Section Number (e.g. \u4E00, \u4E8C, \u4E09)</label>
-          <input type="text" id="edit-section-number" value="${escapeAttr(section.number)}" placeholder="e.g. \u5341\u4E94">
+          <label>Section Number (auto-assigned, editable)</label>
+          <input type="text" id="edit-section-number" value="${escapeAttr(section.number)}" placeholder="e.g. I, II, III">
         </div>
         <div class="note-edit-field">
           <label>Section Title</label>
@@ -1336,19 +1342,7 @@ body {
       }
     }
 
-    // Auto-renumber all sections (I, II, III, ...)
-    const romans = ['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV','XVI','XVII','XVIII','XIX','XX'];
-    NOTES.sections.forEach((s, i) => {
-      s.number = i < romans.length ? romans[i] : String(i + 1);
-      s.full_title = s.number + '. ' + s.title;
-    });
-
-    // Update timestamp and save to localStorage
-    NOTES.updated = new Date().toISOString().slice(0, 10);
-    localStorage.setItem('ppu_teaching_notes', JSON.stringify(NOTES));
-    notesSource = 'local';
-
-    buildNotesGrid();
+    renumberAndSaveSections();
 
     if (isNew) {
       switchView('notes');
@@ -1369,6 +1363,46 @@ body {
     if (insertBtns[index]) insertBtns[index].remove();
     blocks[index].remove();
     reindexSubsections();
+  }
+
+  function renumberAndSaveSections() {
+    const romans = ['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV','XVI','XVII','XVIII','XIX','XX'];
+    NOTES.sections.forEach((s, i) => {
+      s.number = i < romans.length ? romans[i] : String(i + 1);
+      s.full_title = s.number + '. ' + s.title;
+    });
+    NOTES.total_sections = NOTES.sections.length;
+    NOTES.updated = new Date().toISOString().slice(0, 10);
+    localStorage.setItem('ppu_teaching_notes', JSON.stringify(NOTES));
+    notesSource = 'local';
+    buildNotesGrid();
+  }
+
+  function moveSectionUp(idx) {
+    if (idx <= 0) return;
+    const temp = NOTES.sections[idx];
+    NOTES.sections[idx] = NOTES.sections[idx - 1];
+    NOTES.sections[idx - 1] = temp;
+    renumberAndSaveSections();
+  }
+
+  function moveSectionDown(idx) {
+    if (idx >= NOTES.sections.length - 1) return;
+    const temp = NOTES.sections[idx];
+    NOTES.sections[idx] = NOTES.sections[idx + 1];
+    NOTES.sections[idx + 1] = temp;
+    renumberAndSaveSections();
+  }
+
+  function deleteSection(idx) {
+    if (NOTES.sections.length <= 1) {
+      alert('Cannot delete the last section.');
+      return;
+    }
+    const section = NOTES.sections[idx];
+    if (!confirm('Delete section "' + section.number + '. ' + section.title + '"?\n\nThis will remove all subsections within it.')) return;
+    NOTES.sections.splice(idx, 1);
+    renumberAndSaveSections();
   }
 
   function reindexSubsections() {
@@ -1614,6 +1648,24 @@ body {
       const insertBtn = e.target.closest('.btn-insert-section');
       if (insertBtn) {
         showNoteEdit('__insert_' + insertBtn.dataset.insertAfter);
+        return;
+      }
+      const moveUpBtn = e.target.closest('[data-move-section-up]');
+      if (moveUpBtn) {
+        e.stopPropagation();
+        moveSectionUp(parseInt(moveUpBtn.dataset.moveSectionUp, 10));
+        return;
+      }
+      const moveDownBtn = e.target.closest('[data-move-section-down]');
+      if (moveDownBtn) {
+        e.stopPropagation();
+        moveSectionDown(parseInt(moveDownBtn.dataset.moveSectionDown, 10));
+        return;
+      }
+      const delSecBtn = e.target.closest('[data-delete-section]');
+      if (delSecBtn) {
+        e.stopPropagation();
+        deleteSection(parseInt(delSecBtn.dataset.deleteSection, 10));
         return;
       }
       const card = e.target.closest('.note-card');

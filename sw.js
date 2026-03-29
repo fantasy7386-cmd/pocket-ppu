@@ -1,5 +1,5 @@
 // *** CHANGE THIS VERSION to trigger update on users' devices ***
-const CACHE_VERSION = 'v20260329.1300';
+const CACHE_VERSION = 'v20260329.1400';
 const CACHE_NAME = 'pocket-ppu-' + CACHE_VERSION;
 
 const ASSETS = [
