@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "updated": "2026-03-27",
+  "updated": "2026-03-29",
   "author": "PPu Teaching Faculty",
   "total_sections": 13,
   "sections": [
@@ -65,12 +65,18 @@
         {
           "title": "1. 症狀分布",
           "items": [
-            "Chronic prostatitis / CPPS 的典型疼痛位置可包括會陰部與大腿內側。Miction pain.",
+            "Chronic prostatitis / CPPS 的典型疼痛位置可包括會陰部與大腿內側。",
             "典型位置未必是 scrotal pain，需注意疼痛分布是否符合 pelvic pain syndrome 的特徵。"
           ]
         },
         {
-          "title": "2. 初步藥物試驗",
+          "title": "2. 排尿症狀",
+          "items": [
+            "Miction pain 為主。非dysuria。"
+          ]
+        },
+        {
+          "title": "3. 初步藥物試驗",
           "items": [
             "可先使用 celecoxib 觀察症狀是否改善。",
             "可先以每日一次使用，症狀明顯改善後再降為隔日一次，最後視情況停藥。",
@@ -78,7 +84,7 @@
           ]
         },
         {
-          "title": "3. Prostatitis 與檢查結果不一致",
+          "title": "4. Prostatitis 與檢查結果不一致",
           "items": [
             "有 dysuria 或 painful voiding 並不一定是 acute urinary retention，也可能是 prostatitis。",
             "即使是 prostatitis，urinalysis 也可能沒有明顯異常，不能因 U/A 清楚就完全排除。"
@@ -449,12 +455,12 @@
     },
     {
       "id": "tn_12",
-      "number": "XIV",
+      "number": "XIII",
       "title": "快速複習版",
-      "full_title": "XIV. 快速複習版",
+      "full_title": "XIII. 快速複習版",
       "subsections": [
         {
-          "title": "",
+          "title": "1. ",
           "items": [
             "做 UFM 時避免病人刻意用力；膀胱需有足夠充盈。",
             "Kegel 訓練重點不只在收縮，也在完全放鬆。",
