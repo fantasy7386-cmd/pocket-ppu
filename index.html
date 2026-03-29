@@ -1163,14 +1163,15 @@ body {
       indicator.innerHTML = '';
     }
 
-    grid.innerHTML = NOTES.sections.map(section => `
+    const admin = isAdmin();
+    grid.innerHTML = NOTES.sections.map((section, idx) => `
       <div class="note-card fade-in" data-note-id="${section.id}">
         <div class="note-number">${section.number}</div>
         <div class="note-card-info">
           <div class="note-card-title">${section.title}</div>
           <div class="note-card-meta">${section.subsections.length} subsection${section.subsections.length !== 1 ? 's' : ''}</div>
         </div>
-      </div>
+      </div>${admin ? `<button class="btn-insert-section" data-insert-after="${idx}" title="Insert section here" style="display:block;width:100%;border:none;background:none;color:var(--success);font-size:18px;padding:2px 0;cursor:pointer;opacity:0.4;">＋</button>` : ''}
     `).join('');
   }
 
@@ -1216,12 +1217,19 @@ body {
     window.scrollTo(0, 0);
   }
 
+  let insertAfterIndex = -1; // -1 = append to end
+
   function showNoteEdit(noteId) {
     let section;
     let isNew = false;
 
-    if (noteId === '__new__') {
+    if (noteId === '__new__' || noteId.startsWith('__insert_')) {
       isNew = true;
+      if (noteId.startsWith('__insert_')) {
+        insertAfterIndex = parseInt(noteId.replace('__insert_', ''));
+      } else {
+        insertAfterIndex = -1;
+      }
       section = {
         id: 'tn_' + Date.now(),
         number: '',
@@ -1303,13 +1311,19 @@ body {
     });
 
     if (isNew) {
-      NOTES.sections.push({
+      const newSection = {
         id: noteId,
         number: number,
         title: title,
         full_title: fullTitle,
         subsections: subsections
-      });
+      };
+      if (insertAfterIndex >= 0 && insertAfterIndex < NOTES.sections.length) {
+        NOTES.sections.splice(insertAfterIndex + 1, 0, newSection);
+      } else {
+        NOTES.sections.push(newSection);
+      }
+      insertAfterIndex = -1;
       NOTES.total_sections = NOTES.sections.length;
     } else {
       const idx = NOTES.sections.findIndex(s => s.id === noteId);
@@ -1565,6 +1579,11 @@ body {
 
     // Notes grid clicks
     document.getElementById('notes-grid').addEventListener('click', e => {
+      const insertBtn = e.target.closest('.btn-insert-section');
+      if (insertBtn) {
+        showNoteEdit('__insert_' + insertBtn.dataset.insertAfter);
+        return;
+      }
       const card = e.target.closest('.note-card');
       if (card) {
         showNoteDetail(card.dataset.noteId);
