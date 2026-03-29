@@ -1342,6 +1342,14 @@ body {
       }
     }
 
+    // Auto-renumber subsection titles (1. 2. 3. ...)
+    subsections.forEach((sub, i) => {
+      // Remove existing leading number prefix (e.g. "1. ", "12. ", "3.")
+      sub.title = sub.title.replace(/^\d+\.\s*/, '');
+      // Add new number
+      sub.title = (i + 1) + '. ' + sub.title;
+    });
+
     renumberAndSaveSections();
 
     if (isNew) {
