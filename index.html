@@ -1342,14 +1342,6 @@ body {
       }
     }
 
-    // Auto-renumber subsection titles (1. 2. 3. ...)
-    subsections.forEach((sub, i) => {
-      // Remove existing leading number prefix (e.g. "1. ", "12. ", "3.")
-      sub.title = sub.title.replace(/^\d+\.\s*/, '');
-      // Add new number
-      sub.title = (i + 1) + '. ' + sub.title;
-    });
-
     renumberAndSaveSections();
 
     if (isNew) {
@@ -1378,6 +1370,13 @@ body {
     NOTES.sections.forEach((s, i) => {
       s.number = i < romans.length ? romans[i] : String(i + 1);
       s.full_title = s.number + '. ' + s.title;
+      // Also renumber subsection titles (1. 2. 3. ...)
+      if (s.subsections) {
+        s.subsections.forEach((sub, j) => {
+          sub.title = sub.title.replace(/^\d+\.\s*/, '');
+          sub.title = (j + 1) + '. ' + sub.title;
+        });
+      }
     });
     NOTES.total_sections = NOTES.sections.length;
     NOTES.updated = new Date().toISOString().slice(0, 10);
