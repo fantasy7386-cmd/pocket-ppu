@@ -1293,6 +1293,7 @@ body {
           <textarea class="sub-items-input" placeholder="Enter items, one per line">${escapeHTML(sub.items ? sub.items.join('\n') : '')}</textarea>
         </div>
       </div>
+      <button class="btn-insert-subsection" data-insert-sub-after="${index}" style="display:block;width:100%;border:none;background:none;color:var(--success);font-size:16px;padding:2px 0;cursor:pointer;opacity:0.4;">＋ insert subsection</button>
     `;
   }
 
@@ -1363,21 +1364,51 @@ body {
       return;
     }
     if (!confirm('Delete subsection ' + (index + 1) + '?')) return;
+    // Remove the block and its following insert button
+    const insertBtns = document.querySelectorAll('#edit-subsections .btn-insert-subsection');
+    if (insertBtns[index]) insertBtns[index].remove();
     blocks[index].remove();
-    // Re-index
+    reindexSubsections();
+  }
+
+  function reindexSubsections() {
     document.querySelectorAll('#edit-subsections .subsection-edit-block').forEach((block, i) => {
       block.dataset.subIndex = i;
       block.querySelector('.subsection-number').textContent = 'Subsection ' + (i + 1);
       block.querySelector('.subsection-delete-btn').dataset.deleteSub = i;
+    });
+    document.querySelectorAll('#edit-subsections .btn-insert-subsection').forEach((btn, i) => {
+      btn.dataset.insertSubAfter = i;
     });
   }
 
   function addSubsection() {
     const container = document.getElementById('edit-subsections');
     const count = container.querySelectorAll('.subsection-edit-block').length;
-    const newBlock = document.createElement('div');
-    newBlock.innerHTML = buildSubsectionEditBlock({ title: '', items: [] }, count);
-    container.appendChild(newBlock.firstElementChild);
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = buildSubsectionEditBlock({ title: '', items: [] }, count);
+    // Append both the block and the insert button
+    while (wrapper.firstChild) container.appendChild(wrapper.firstChild);
+    reindexSubsections();
+  }
+
+  function insertSubsectionAfter(afterIndex) {
+    const container = document.getElementById('edit-subsections');
+    const blocks = container.querySelectorAll('.subsection-edit-block');
+    const insertBtns = container.querySelectorAll('.btn-insert-subsection');
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = buildSubsectionEditBlock({ title: '', items: [] }, afterIndex + 1);
+    // Insert after the insert-button that follows the target block
+    const refBtn = insertBtns[afterIndex];
+    if (refBtn && refBtn.nextSibling) {
+      // Insert the new block + its insert button after the clicked insert button
+      const frag = document.createDocumentFragment();
+      while (wrapper.firstChild) frag.appendChild(wrapper.firstChild);
+      refBtn.parentNode.insertBefore(frag, refBtn.nextSibling);
+    } else {
+      while (wrapper.firstChild) container.appendChild(wrapper.firstChild);
+    }
+    reindexSubsections();
   }
 
   function exportNotesJSON() {
@@ -1657,6 +1688,14 @@ body {
         const nid = saveBtn.dataset.noteSave;
         const isNew = saveBtn.dataset.isNew === 'true';
         saveNoteEdit(nid, isNew);
+        return;
+      }
+
+      // Insert subsection
+      const insertSubBtn = e.target.closest('[data-insert-sub-after]');
+      if (insertSubBtn) {
+        e.stopPropagation();
+        insertSubsectionAfter(parseInt(insertSubBtn.dataset.insertSubAfter, 10));
         return;
       }
 
