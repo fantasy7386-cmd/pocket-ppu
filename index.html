@@ -1374,7 +1374,11 @@ body {
 
   // --- Admin detection ---
   const GH_TOKEN_KEY = 'ppu_gh_token';
-  function isAdmin() { return !!localStorage.getItem(GH_TOKEN_KEY); }
+  function isAdmin() {
+    if (localStorage.getItem(GH_TOKEN_KEY)) return true;
+    const code = (localStorage.getItem('ppu_access_code') || '').toUpperCase();
+    return code === 'ADMIN';
+  }
 
   function updateAdminUI() {
     const admin = isAdmin();
