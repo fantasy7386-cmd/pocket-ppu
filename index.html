@@ -610,7 +610,7 @@ body {
     <div id="notes-local-indicator"></div>
     <div class="notes-grid" id="notes-grid"></div>
     <div class="notes-actions" id="notes-actions">
-      <button class="btn btn-outline" id="btn-add-section" style="display:none">+ Add Section</button>
+      <!-- Add Section removed: use insert ＋ buttons between sections instead -->
       <button class="btn btn-accent" id="btn-sync-github" style="display:none">⬆ Sync to GitHub</button>
       <button class="btn btn-outline" id="btn-suggest-note" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSd5EDJWg4m2td7gLAa4m43oYjmaI3FO4rvp6NrZCdfBJAZwbA/viewform','_blank')" style="width:100%">📋 投稿建議</button>
     </div>
@@ -1267,7 +1267,7 @@ body {
         <div class="note-edit-field">
           <label>Subsections</label>
           <div id="edit-subsections">${subsectionsHTML}</div>
-          <button class="add-subsection-btn" id="btn-add-subsection">+ Add Subsection</button>
+          <!-- Add Subsection removed: use insert ＋ buttons between subsections instead -->
         </div>
       </div>
       <div class="note-edit-actions">
@@ -1434,10 +1434,8 @@ body {
 
   function updateAdminUI() {
     const admin = isAdmin();
-    const addBtn = document.getElementById('btn-add-section');
     const syncBtn = document.getElementById('btn-sync-github');
     const suggestBtn = document.getElementById('btn-suggest-note');
-    if (addBtn) addBtn.style.display = admin ? '' : 'none';
     if (syncBtn) syncBtn.style.display = admin ? '' : 'none';
     if (suggestBtn) suggestBtn.style.display = admin ? 'none' : '';
   }
@@ -1609,10 +1607,6 @@ body {
     document.getElementById('cat-back').addEventListener('click', () => switchView('home'));
 
     // Notes view buttons
-    document.getElementById('btn-add-section').addEventListener('click', () => {
-      showNoteEdit('__new__');
-    });
-
     document.getElementById('btn-sync-github').addEventListener('click', syncToGitHub);
 
     // Notes grid clicks
@@ -1708,11 +1702,6 @@ body {
       }
 
       // Add subsection
-      if (e.target.closest('#btn-add-subsection')) {
-        addSubsection();
-        return;
-      }
-
       // Keyword tag
       const kwTag = e.target.closest('[data-kw]');
       if (kwTag) {
