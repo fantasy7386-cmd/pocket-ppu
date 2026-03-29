@@ -1335,6 +1335,13 @@ body {
       }
     }
 
+    // Auto-renumber all sections (I, II, III, ...)
+    const romans = ['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV','XVI','XVII','XVIII','XIX','XX'];
+    NOTES.sections.forEach((s, i) => {
+      s.number = i < romans.length ? romans[i] : String(i + 1);
+      s.full_title = s.number + '. ' + s.title;
+    });
+
     // Update timestamp and save to localStorage
     NOTES.updated = new Date().toISOString().slice(0, 10);
     localStorage.setItem('ppu_teaching_notes', JSON.stringify(NOTES));
